@@ -10,26 +10,27 @@
         <div>- add any cool features u can think of</div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" class="nations">
-        <div *ngFor="let nation of nations" class="nation-div">
-            <div fxLayout="column" (mouseover)="hilite(nation)" class="nation">
-                <div>{{nation.alpha3Code}}</div>
-                <img [src]="nation.flag" alt="" draggable="false" class="image">
+        <div *ngFor="let nat of nations" class="nation-div">
+            <div [ngClass]="{'hilite': nat.name===hilitedName}" [ngClass]="{'nation-selected': nat.name===nation.name}" fxLayout="column" (mouseover)="hilite(nat)" (click)="changeCountry(nat)" class="nation">
+                <div>{{nat.alpha3Code}}</div>
+                <img [src]="nat.flag" alt="" draggable="false" class="image">
             </div>
         </div>
     </div>
     <div class="hilite">
         {{hilitedName}}
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-between start" class=info>
+    <div fxLayout="column" fxLayoutAlign="center center" class=info>
         <div class="active">
-            <div>name:</div>
-            <div>native name:</div>
-            <div>capital:</div>
-            <div>latitude:</div>
-            <div>longitude:</div>
+            <div>name: {{ nation?.name }}</div>
+            <div>native: {{ nation?.nativeName }}</div>
+            <div>capital: {{ nation?.capital }}</div>
+            <div>latitude: {{ nation?.latitude }}</div>
+            <div>longitude: {{ nation?.longitude }}</div>
         </div>
+        <br/>
         <div>
-            <img #flag style="border:1px dashed blue;width:320px;height:240px;">
+            <img *ngIf="showImage" @fade [src]="nation?.flag" #flag style="border:1px dashed blue;width:320px;height:240px;">
         </div>
     </div>
 </div>
